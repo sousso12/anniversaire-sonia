@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sonia ❤️ - Joyeux Anniversaire</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#7c3aed',
+                            darkPurple: '#4c1d95',
+                            pink: '#ec4899',
+                            lightPink: '#f472b6',
+                            bgDark: '#0f0728'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f0728; color: #f3f4f6; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+        .glow-pink {
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+        }
+        /* Animation de transition des écrans */
+        .screen {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .screen.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-pink-500 selection:text-white relative">
+
+    <!-- Effet de fond lumineux rose & violet -->
+    <div class="absolute top-0 left-1/4 w-72 h-72 bg-purple-600/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-1/4 w-72 h-72 bg-pink-600/30 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Barre de statut style App Mobile -->
+    <header class="w-full px-6 py-4 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse"></span>
+            <span class="text-xs font-semibold tracking-wider text-pink-300 uppercase">Lomé ➔ Kara</span>
+        </div>
+        <div id="stepIndicator" class="text-xs font-bold text-purple-300 bg-purple-950/60 px-3 py-1 rounded-full border border-purple-500/30">
+            1 / 5
+        </div>
+    </header>
+
+    <!-- Conteneur principal des Écrans (SPA) -->
+    <main class="flex-1 flex flex-col justify-center items-center px-5 max-w-md mx-auto w-full z-10 py-4">
+
+        <!-- ÉCRAN 1 : Accueil / Welcome -->
+        <div id="screen-1" class="screen active flex-col text-center w-full space-y-6">
+            <div class="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center glow-pink transform rotate-3">
+                <span class="text-4xl">👑</span>
+            </div>
+            <div class="space-y-2">
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Joyeux Anniversaire <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Sonia</span></h1>
+                <p class="text-sm text-purple-200/80">Une application codée avec le cœur, rien que pour toi, pour ce 25 septembre.</p>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-xs text-pink-200/90 leading-relaxed border border-pink-500/20">
+                ✨ Prête pour ton voyage personnalisé à travers mes pensées ? Laisse-toi guider...
+            </div>
+            <button onclick="nextScreen(2)" class="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 font-bold text-white shadow-lg glow-pink active:scale-95 transition-all text-sm">
+                Commencer l'aventure ➔
+            </button>
+        </div>
+
+        <!-- ÉCRAN 2 : Le Manque & La Distance -->
+        <div id="screen-2" class="screen flex-col text-center w-full space-y-6">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-purple-900/60 border border-purple-500/30 flex items-center justify-center glow-purple">
+                <span class="text-3xl">🌍</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-white">Lomé & Kara</h2>
+                <p class="text-sm text-purple-200/80 leading-relaxed">
+                    Même si les kilomètres nous séparent en ce moment, sache que tu occupes toutes mes pensées. La distance n'est qu'un chiffre face à ce qu'on partage.
+                </p>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-xs text-purple-300 leading-relaxed">
+                "Peu importe où tu es, tu es toujours là où bat mon cœur."
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="nextScreen(1)" class="w-1/3 py-3 rounded-xl bg-purple-950/80 text-purple-300 text-xs font-semibold border border-purple-800/50">Retour</button>
+                <button onclick="nextScreen(3)" class="w-2/3 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-sm glow-pink">Suivant ✨</button>
+            </div>
+        </div>
+
+        <!-- ÉCRAN 3 : Ce qui la rend unique -->
+        <div id="screen-3" class="screen flex-col text-center w-full space-y-6">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-pink-950/60 border border-pink-500/30 flex items-center justify-center glow-pink">
+                <span class="text-3xl">💖</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-white">Ce que j'aime chez toi</h2>
+                <p class="text-sm text-purple-200/80 leading-relaxed">
+                    Ton sourire, ta bienveillance, et la force que tu m'apportes au quotidien. Tu as ce don unique de rendre chaque jour plus lumineux.
+                </p>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-xs text-pink-200 leading-relaxed">
+                J'ai tellement hâte qu'on se retrouve enfin pour rattraper tout ce temps et te serrer fort dans mes bras.
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="nextScreen(2)" class="w-1/3 py-3 rounded-xl bg-purple-950/80 text-purple-300 text-xs font-semibold border border-purple-800/50">Retour</button>
+                <button onclick="nextScreen(4)" class="w-2/3 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-sm glow-pink">Continuer ➔</button>
+            </div>
+        </div>
+
+        <!-- ÉCRAN 4 : Une promesse -->
+        <div id="screen-4" class="screen flex-col text-center w-full space-y-6">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-purple-900/60 border border-purple-500/30 flex items-center justify-center glow-purple">
+                <span class="text-3xl">🌹</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-white">Une promesse</h2>
+                <p class="text-sm text-purple-200/80 leading-relaxed">
+                    Sache que peu importe les épreuves, je serai toujours là pour toi, à tes côtés. Tu es ma reine, ma source de motivation et mon plus beau projet de vie.
+                </p>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-xs text-purple-200 leading-relaxed">
+                Es-tu prête à découvrir la surprise finale de ton application ? 🎁
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="nextScreen(3)" class="w-1/3 py-3 rounded-xl bg-purple-950/80 text-purple-300 text-xs font-semibold border border-purple-800/50">Retour</button>
+                <button onclick="triggerGrandFinale()" class="w-2/3 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm glow-pink animate-pulse">Découvrir 🎉</button>
+            </div>
+        </div>
+
+        <!-- ÉCRAN 5 : Grand Final Anniversaire -->
+        <div id="screen-5" class="screen flex-col text-center w-full space-y-5">
+            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center glow-pink shadow-2xl animate-bounce">
+                <span class="text-4xl">🎉</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Joyeux Anniversaire Sonia !</h2>
+                <div class="glass-card p-5 rounded-2xl text-xs md:text-sm text-purple-100/90 leading-relaxed border-2 border-pink-500/30 text-left space-y-3">
+                    <p>Mon cœur,</p>
+                    <p>Passe une magnifique journée pour ton anniversaire en ce 25 septembre. Même de loin, sache que mon amour pour toi est inconditionnel.</p>
+                    <p class="font-semibold text-pink-300 text-center pt-2">Je t'aime fort fort fort ma reine ! ❤️👑</p>
+                </div>
+            </div>
+            <button onclick="triggerConfetti()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 font-bold text-white shadow-lg glow-purple active:scale-95 transition-all text-sm">
+                Envoyer une pluie de cœurs ✨
+            </button>
+            <button onclick="nextScreen(1)" class="text-xs text-purple-400 hover:text-pink-300 underline pt-2">
+                Recommencer l'histoire ⟳
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer minimaliste -->
+    <footer class="w-full text-center py-4 text-[10px] text-purple-400/60 z-10">
+        Développé avec amour pour Sonia 💻💜
+    </footer>
+
+    <!-- Script de navigation et animations -->
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function nextScreen(screenNumber) {
+            // Cacher tous les écrans
+            for (let i = 1; i <= totalSteps; i++) {
+                const screen = document.getElementById(`screen-${i}`);
+                screen.classList.remove('active');
+            }
+
+            // Afficher l'écran demandé
+            const targetScreen = document.getElementById(`screen-${screenNumber}`);
+            setTimeout(() => {
+                targetScreen.classList.add('active');
+            }, 50);
+
+            // Mettre à jour l'indicateur de pas (sauf pour le grand final)
+            currentStep = screenNumber;
+            const indicator = document.getElementById('stepIndicator');
+            if (screenNumber <= 4) {
+                indicator.textContent = `${screenNumber} / 4`;
+                indicator.style.display = 'block';
+            } else {
+                indicator.style.display = 'none';
+            }
+
+            // Scroll top en douceur
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function triggerGrandFinale() {
+            nextScreen(5);
+            triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            // Explosion de confettis aux couleurs rose et violette
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ec4899', '#7c3aed', '#f472b6', '#a78bfa', '#ffffff']
+            });
+
+            // Second souffle pour plus de magie
+            setTimeout(() => {
+                confetti({
+                    particleCount: 80,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.7 },
+                    colors: ['#ec4899', '#7c3aed']
+                });
+                confetti({
+                    particleCount: 80,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.7 },
+                    colors: ['#f472b6', '#a78bfa']
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
